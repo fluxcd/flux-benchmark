@@ -1,0 +1,27 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: {{ template "podinfo.fullname" . }}
+  labels:
+    app: {{ template "podinfo.name" . }}
+    chart: {{ template "podinfo.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  progressDeadlineSeconds: 60
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "podinfo.fullname" . }}
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta1
+    kind: HorizontalPodAutoscaler
+    name: {{ template "podinfo.fullname" . }}
+  service:
+    port: 9898
+    name: {{ template "podinfo.fullname" . }}
+    portDiscovery: true
+  analysis:
+    interval: 10s
+    threshold: 10
+    iterations: 5
