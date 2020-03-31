@@ -2,15 +2,16 @@
 
 set -o errexit
 
-: ${1?"Usage: $0 <NAMESPACE>"}
+: ${1?"Usage: $0 <NUMBER OF RELEASES>"}
 
-NAMESPACE=$1
+COUNT=$1
+NAMESPACE=test
 REPO_ROOT=$(git rev-parse --show-toplevel)
 TEST_DIR="${REPO_ROOT}/cluster/${NAMESPACE}"
 
 mkdir -p ${TEST_DIR}
 
-for i in {1..100}
+for i in $(seq -f "%05g" 1 $COUNT)
 do
 
 cat << EOF | tee ${TEST_DIR}/app-${i}.yaml
