@@ -10,7 +10,7 @@ TEST_DIR="${REPO_ROOT}/cluster/${NAMESPACE}"
 
 mkdir -p ${TEST_DIR}
 
-for i in {1..10}
+for i in {1..100}
 do
 
 cat << EOF | tee ${TEST_DIR}/app-${i}.yaml

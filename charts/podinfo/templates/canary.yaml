@@ -19,7 +19,6 @@ spec:
     name: {{ template "podinfo.fullname" . }}
   service:
     port: 9898
-    name: {{ template "podinfo.fullname" . }}
     portDiscovery: true
   analysis:
     interval: 10s

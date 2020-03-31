@@ -1,0 +1,11 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: app-82
+  namespace: test
+spec:
+  releaseName: app-82
+  chart:
+    git: https://github.com/stefanprodan/gitops-benchmark
+    ref: master
+    path: charts/podinfo
