@@ -1,0 +1,11 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: app-37
+  namespace: test
+spec:
+  releaseName: app-37
+  chart:
+    git: https://github.com/stefanprodan/gitops-benchmark
+    ref: master
+    path: charts/podinfo

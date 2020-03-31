@@ -61,6 +61,7 @@ helm upgrade -i helm-operator fluxcd/helm-operator --namespace fluxcd \
 helm repo add flagger https://flagger.app
 
 helm upgrade -i flagger flagger/flagger --namespace fluxcd \
+--set image.tag=master-3b04f12 \
 --set meshProvider=kubernetes \
 --set prometheus.install=true
 ```
