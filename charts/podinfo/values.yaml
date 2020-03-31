@@ -37,7 +37,7 @@ service:
 hpa:
   enabled: true
   maxReplicas: 2
-  cpu: 99
+  memory: 256Mi
 
 serviceAccount:
   enabled: false
