@@ -16,6 +16,9 @@ faults:
   unhealthy: false
   unready: false
 
+httpServer:
+  timeout: 30s
+
 h2c:
   enabled: false
 

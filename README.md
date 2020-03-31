@@ -12,16 +12,12 @@ metadata:
   name: gitops-benchmark
   region: eu-west-1
   version: "1.15"
-
 managedNodeGroups:
   - name: default
-    instanceType: m5.large
+    # 58 pods per node
+    instanceType: c5.xlarge 
     desiredCapacity: 5
     volumeSize: 120
-    iam:
-      withAddonPolicies:
-        albIngress: true
-        autoScaler: true
 EOF
 
 helm upgrade -i metrics-server stable/metrics-server \
@@ -64,4 +60,6 @@ helm upgrade -i flagger flagger/flagger --namespace fluxcd \
 --set image.tag=master-3b04f12 \
 --set meshProvider=kubernetes \
 --set prometheus.install=true
+
+helm upgrade -i grafana ./charts/grafana --namespace fluxcd 
 ```
