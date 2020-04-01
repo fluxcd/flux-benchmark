@@ -6,6 +6,7 @@ set -o errexit
 
 COUNT=$1
 NAMESPACE=test
+REPO=https://github.com/stefanprodan/gitops-benchmark
 
 if [ $COUNT -gt 0 ]
 then

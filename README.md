@@ -81,7 +81,7 @@ commandUpdated:
     - command: scripts/gen-hrs.sh ${HRS}
 EOF
 
-git add .flux.yaml &&
+git add -A &&
 git commit -m "Benchmark ${HRS} releases" &&
 git push &&
 fluxctl sync --k8s-fwd-ns fluxcd
