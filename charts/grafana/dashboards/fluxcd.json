@@ -554,6 +554,26 @@
           "intervalFactor": 1,
           "legendFormat": "{{ pod_name }}",
           "refId": "B"
+        },
+        {
+          "expr": "go_memstats_alloc_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flux.*\"}",
+          "legendFormat": "bytes allocated",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(go_memstats_alloc_bytes_total{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flux.*\"}[30s])",
+          "legendFormat": "alloc rate",
+          "refId": "C"
+        },
+        {
+          "expr": "go_memstats_stack_inuse_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flux.*\"}",
+          "legendFormat": "stack inuse",
+          "refId": "D"
+        },
+        {
+          "expr": "go_memstats_heap_inuse_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flux.*\"}",
+          "legendFormat": "heap inuse",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -651,6 +671,30 @@
           "intervalFactor": 1,
           "legendFormat": "{{ pod_name }}",
           "refId": "B"
+        },
+        {
+          "expr": "go_memstats_alloc_bytes{release=\"helm-operator\"}",
+          "intervalFactor": 1,
+          "legendFormat": "bytes allocated",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(go_memstats_alloc_bytes_total{release=\"helm-operator\"}[30s])",
+          "intervalFactor": 1,
+          "legendFormat": "alloc rate",
+          "refId": "C"
+        },
+        {
+          "expr": "go_memstats_stack_inuse_bytes{release=\"helm-operator\"}",
+          "intervalFactor": 1,
+          "legendFormat": "stack inuse",
+          "refId": "D"
+        },
+        {
+          "expr": "go_memstats_heap_inuse_bytes{release=\"helm-operator\"}",
+          "intervalFactor": 1,
+          "legendFormat": "heap inuse",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -927,107 +971,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 30
-      },
-      "hiddenSeries": false,
-      "id": 115,
-      "interval": "",
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "histogram_quantile(0.99, sum(rate(flagger_canary_duration_seconds_bucket[1m])) by (le))",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "flagger analysis duration",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Flagger Sync",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "prometheus",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 109,
@@ -1122,7 +1068,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 110,
@@ -1156,13 +1102,29 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"fluxcd\",pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\", container_name!~\"POD|istio-proxy\"}) by (pod_name)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 1,
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"fluxcd\", pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\", container_name!~\"POD|istio-proxy\"}) by (pod_name)",
           "legendFormat": "{{ pod_name }}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(go_memstats_alloc_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\"}) by (kubernetes_pod_name)",
+          "legendFormat": "{{kubernetes_pod_name}} bytes allocated",
           "refId": "B"
+        },
+        {
+          "expr": "sum(rate(go_memstats_alloc_bytes_total{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\"}[30s])) by (kubernetes_pod_name)",
+          "legendFormat": "{{ kubernetes_pod_name}} alloc rate",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(go_memstats_stack_inuse_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\"}) by (kubernetes_pod_name)",
+          "legendFormat": "{{ kubernetes_pod_name}} stack inuse",
+          "refId": "D"
+        },
+        {
+          "expr": "sum(go_memstats_heap_inuse_bytes{kubernetes_namespace=\"fluxcd\", kubernetes_pod_name=~\"flagger-[0-9a-zA-Z]+(-[0-9a-zA-Z]+)\"}) by (kubernetes_pod_name)",
+          "legendFormat": "{{ kubernetes_pod_name}} heap inuse",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -1216,7 +1178,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -1245,7 +1207,7 @@
     ]
   },
   "timezone": "",
-  "title": "Flux CD",
+  "title": "Flux CD Benchmark",
   "uid": "fluxcd",
-  "version": 1
+  "version": 4
 }
