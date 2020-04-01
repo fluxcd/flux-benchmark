@@ -34,6 +34,8 @@ kubectl create namespace fluxcd
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
 helm upgrade -i flux fluxcd/flux --namespace fluxcd \
+--set image.repository=fluxcd/flux-prerelease \
+--set image.tag=master-98602df4-wip \
 --set git.readonly=true \
 --set registry.disableScanning=true \
 --set prometheus.enabled=true \
@@ -61,14 +63,4 @@ helm upgrade -i flagger flagger/flagger --namespace fluxcd \
 --set prometheus.install=true
 
 helm upgrade -i grafana ./charts/grafana --namespace fluxcd 
-```
-
-## Benchmark
-
-Generate HRs:
-
-```bash
-rm -rf ./cluster/test && \
-./scripts/gen-hrs.sh 100 && \
-
 ```
