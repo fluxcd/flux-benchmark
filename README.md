@@ -62,6 +62,11 @@ helm upgrade -i flagger flagger/flagger --namespace fluxcd \
 --set meshProvider=kubernetes \
 --set prometheus.install=true
 
+helm upgrade -i helm-tester flagger/loadtester --namespace fluxcd \
+--set fullnameOverride=helm-tester \
+--set image.tag=0.15.0 \
+--set serviceAccountName=helm-operator
+
 helm upgrade -i grafana ./charts/grafana --namespace fluxcd  \
 --set service.type=LoadBalancer \
 --set url=http://flagger-prometheus:9090

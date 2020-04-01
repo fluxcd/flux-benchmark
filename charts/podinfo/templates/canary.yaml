@@ -24,3 +24,11 @@ spec:
     interval: 10s
     threshold: 5
     iterations: 2
+    webhooks:
+      - name: "helm test"
+        type: pre-rollout
+        url: http://helm-tester.fluxcd/
+        timeout: 5m
+        metadata:
+          type: "helmv3"
+          cmd: "test {{ .Release.Name }} -n {{ .Release.Namespace }}"
