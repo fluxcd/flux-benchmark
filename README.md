@@ -64,3 +64,23 @@ helm upgrade -i flagger flagger/flagger --namespace fluxcd \
 
 helm upgrade -i grafana ./charts/grafana --namespace fluxcd 
 ```
+
+## Benchmark
+
+Deploy 100 helm releases:
+
+```bash
+export HRS=100
+
+cat << EOF | tee .flux.yaml
+version: 1
+commandUpdated:
+  generators:
+    - command: scripts/gen-hrs.sh ${HRS}
+EOF
+
+git add .flux.yaml &&
+git commit -m "Benchmark ${HRS} releases" &&
+git push &&
+fluxctl sync --k8s-fwd-ns fluxcd
+```

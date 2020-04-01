@@ -7,7 +7,10 @@ set -o errexit
 COUNT=$1
 NAMESPACE=test
 
-for i in $(seq -f "%05g" 1 $COUNT)
+if [ $COUNT -gt 0 ]
+then
+
+for i in $(seq -w 1 $COUNT)
 do
 
 cat << EOF
@@ -26,6 +29,7 @@ spec:
 EOF
 
 done
+fi
 
 cat << EOF
 ---
