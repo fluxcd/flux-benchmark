@@ -53,6 +53,7 @@ helm upgrade -i helm-operator fluxcd/helm-operator --namespace fluxcd \
 --set git.ssh.secretName=flux-git-deploy \
 --set service.type=LoadBalancer \
 --set prometheus.enabled=true \
+--set workers=2 \
 --set statusUpdateInterval=30s \
 --set chartsSyncInterval=3m
 

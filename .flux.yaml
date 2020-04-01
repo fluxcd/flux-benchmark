@@ -1,4 +1,4 @@
 version: 1
 commandUpdated:
   generators:
-    - command: scripts/gen-hrs.sh 0
+    - command: scripts/gen-hrs.sh 100
