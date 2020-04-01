@@ -22,5 +22,5 @@ spec:
     portDiscovery: true
   analysis:
     interval: 10s
-    threshold: 10
-    iterations: 5
+    threshold: 5
+    iterations: 2
