@@ -62,3 +62,13 @@ helm upgrade -i flagger flagger/flagger --namespace fluxcd \
 
 helm upgrade -i grafana ./charts/grafana --namespace fluxcd 
 ```
+
+## Benchmark
+
+Generate HRs:
+
+```bash
+rm -rf ./cluster/test && \
+./scripts/gen-hrs.sh 100 && \
+
+```

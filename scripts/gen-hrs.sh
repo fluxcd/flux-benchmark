@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -o errexit
 
@@ -15,7 +15,7 @@ mkdir -p ${TEST_DIR}
 for i in $(seq -f "%05g" 1 $COUNT)
 do
 
-cat << EOF | tee ${TEST_DIR}/app-${i}.yaml
+cat << EOF | tee ${TEST_DIR}/app-${i}.yaml > /dev/null
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
@@ -31,13 +31,11 @@ EOF
 
 done
 
-cat << EOF | tee ${TEST_DIR}/namespace.yaml
+cat << EOF | tee ${TEST_DIR}/namespace.yaml > /dev/null
 apiVersion: v1
 kind: Namespace
 metadata:
   name: test
 EOF
 
-cd ${TEST_DIR} && rm kustomization.yaml && kustomize create --autodetect
-
-git add ${TEST_DIR}
+cd ${TEST_DIR} && rm -f kustomization.yaml && kustomize create --autodetect
