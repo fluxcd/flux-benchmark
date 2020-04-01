@@ -4,6 +4,8 @@ Flux, Helm Operator and Flagger benchmark
 
 ## Cluster 
 
+The benchmark was run on an EKS cluster with five [c5.xlarge](https://aws.amazon.com/ec2/instance-types/c5/) nodes:
+
 ```bash
 cat << EOF | eksctl create cluster -p sts -f -
 apiVersion: eksctl.io/v1alpha5
@@ -27,11 +29,13 @@ helm upgrade -i metrics-server stable/metrics-server \
 
 ## Operators
 
-```bash
-helm repo add fluxcd https://charts.fluxcd.io
+The GitOps operators where installed with Helm v3:
 
+```bash
 kubectl create namespace fluxcd
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
+
+helm repo add fluxcd https://charts.fluxcd.io
 
 helm upgrade -i flux fluxcd/flux --namespace fluxcd \
 --set image.repository=fluxcd/flux-prerelease \
@@ -76,7 +80,7 @@ helm upgrade -i grafana ./charts/grafana --namespace fluxcd  \
 
 ## Benchmark
 
-Deploy 100 helm releases:
+The helm install benchmark was performed by deploying 100 helm releases:
 
 ```bash
 export HRS=100
@@ -94,6 +98,15 @@ git push &&
 fluxctl sync --k8s-fwd-ns fluxcd
 ```
 
-On average Helm Operator installs/upgrades 100 helm releases in 4 minutes with 5 to 10 seconds per release.
+The helm upgrade for all 100 releases in-parallel was performed by changing the podinfo container image
+in [values.yaml](https://github.com/stefanprodan/gitops-benchmark/blob/master/charts/podinfo/values.yaml#L27).
+
+## Observations
+
+* Helm Operator installs/upgrades 100 helm releases in 4 minutes with 5 to 10 seconds per release
+* Helm Operator peaks around 250Mi of memory and 400m CPU cores when installing/upgrading
+* Helm Operator peaks around 120Mi of memory and 60m CPU cores for dry-runs
+* Flux peaks around 250Mi of memory and 100m CPU cores when syncing the cluster with git
+* Flagger peaks around 30Mi of memory and 50m CPU cores when running 100 canary releases in-parallel
 
 ![result](https://raw.githubusercontent.com/stefanprodan/gitops-benchmark/docs/gitops-benchmark-100-helm-releases.png)
