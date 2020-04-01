@@ -23,6 +23,9 @@ metadata:
   namespace: ${NAMESPACE}
 spec:
   releaseName: app-${i}
+  rollback:
+    enable: true
+    force: true
   chart:
     git: ${REPO}
     ref: master
