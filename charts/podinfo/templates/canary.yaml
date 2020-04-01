@@ -25,10 +25,10 @@ spec:
     threshold: 5
     iterations: 2
     webhooks:
-      - name: "helm test"
+      - name: "smoke test"
         type: pre-rollout
         url: http://helm-tester.fluxcd/
-        timeout: 5m
+        timeout: 1m
         metadata:
-          type: "helmv3"
-          cmd: "test {{ .Release.Name }} -n {{ .Release.Namespace }}"
+          type: "bash"
+          cmd: "curl -s {{ template "podinfo.fullname" . }}-canary.{{ .Release.Namespace }}:{{ .Values.service.externalPort }}/api/info | grep version"
