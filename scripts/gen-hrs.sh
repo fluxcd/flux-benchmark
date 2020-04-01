@@ -39,3 +39,5 @@ metadata:
 EOF
 
 cd ${TEST_DIR} && rm -f kustomization.yaml && kustomize create --autodetect
+
+cd ${REPO_ROOT} && kustomize build .

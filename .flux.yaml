@@ -1,4 +1,4 @@
 version: 1
 commandUpdated:
   generators:
-    - command: scripts/gen-hrs.sh 10 && kustomize build .
+    - command: scripts/gen-hrs.sh 10
