@@ -94,4 +94,6 @@ git push &&
 fluxctl sync --k8s-fwd-ns fluxcd
 ```
 
-![result](https://raw.githubusercontent.com/stefanprodan/gitops-benchmark/docs/Flux-cd-benchmark.png)
+On average Helm Operator installs/upgrades 100 helm releases in 4 minutes with 5 to 10 seconds per release.
+
+![result](https://raw.githubusercontent.com/stefanprodan/gitops-benchmark/docs/gitops-benchmark-100-helm-releases.png)
