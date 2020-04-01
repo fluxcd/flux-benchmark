@@ -52,13 +52,13 @@ helm upgrade -i helm-operator fluxcd/helm-operator --namespace fluxcd \
 --set helm.versions=v3 \
 --set git.ssh.secretName=flux-git-deploy \
 --set prometheus.enabled=true \
---set statusUpdateInterval=10s \
---set chartsSyncInterval=2m
+--set statusUpdateInterval=30s \
+--set chartsSyncInterval=3m
 
 helm repo add flagger https://flagger.app
 
 helm upgrade -i flagger flagger/flagger --namespace fluxcd \
---set image.tag=master-3b04f12 \
+--set image.tag=master-7c00e5b \
 --set meshProvider=kubernetes \
 --set prometheus.install=true
 
