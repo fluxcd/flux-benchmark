@@ -93,3 +93,5 @@ git commit -m "Benchmark ${HRS} releases" &&
 git push &&
 fluxctl sync --k8s-fwd-ns fluxcd
 ```
+
+![result](https://raw.githubusercontent.com/stefanprodan/gitops-benchmark/docs/Flux-cd-benchmark.png)
