@@ -6,6 +6,7 @@ set -o errexit
 
 COUNT=$1
 NAMESPACE=test
+REPO=https://github.com/stefanprodan/gitops-benchmark
 REPO_ROOT=$(git rev-parse --show-toplevel)
 TEST_DIR="${REPO_ROOT}/cluster/${NAMESPACE}"
 
@@ -23,10 +24,20 @@ metadata:
 spec:
   releaseName: app-${i}
   chart:
-    git: https://github.com/stefanprodan/gitops-benchmark
+    git: ${REPO}
     ref: master
     path: charts/podinfo
 EOF
 
 done
 
+cat << EOF | tee ${TEST_DIR}/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+EOF
+
+cd ${TEST_DIR} && rm kustomization.yaml && kustomize create --autodetect
+
+git add ${TEST_DIR}

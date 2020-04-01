@@ -34,7 +34,6 @@ kubectl create namespace fluxcd
 kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
 helm upgrade -i flux fluxcd/flux --namespace fluxcd \
---set git.path=cluster \
 --set git.readonly=true \
 --set registry.disableScanning=true \
 --set prometheus.enabled=true \
