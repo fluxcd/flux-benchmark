@@ -38,8 +38,7 @@ kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/d
 helm repo add fluxcd https://charts.fluxcd.io
 
 helm upgrade -i flux fluxcd/flux --namespace fluxcd \
---set image.repository=fluxcd/flux-prerelease \
---set image.tag=master-98602df4-wip \
+--set image.tag=1.19.0 \
 --set git.readonly=true \
 --set registry.disableScanning=true \
 --set prometheus.enabled=true \
@@ -64,7 +63,7 @@ helm upgrade -i helm-operator fluxcd/helm-operator --namespace fluxcd \
 helm repo add flagger https://flagger.app
 
 helm upgrade -i flagger flagger/flagger --namespace fluxcd \
---set image.tag=fix-status-init \
+--set image.tag=1.0.0-rc.4 \
 --set meshProvider=kubernetes \
 --set prometheus.install=true
 
