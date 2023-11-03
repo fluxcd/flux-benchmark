@@ -21,9 +21,13 @@ up: # Start a local Kind clusters and a container registry on port 5555
 down: # Teardown the Kind cluster and registry
 	$(REPOSITORY_ROOT)/scripts/kind-down.sh
 
-.PHONY: push
+.PHONY: flux-up
 flux-up: # Install Flux on the local cluster
 	$(REPOSITORY_ROOT)/scripts/flux-install.sh
+
+.PHONY: timoni-push
+timoni-push: # Push modules to the local registry
+	$(REPOSITORY_ROOT)/scripts/timoni-push.sh
 
 .PHONY: help
 help:  ## Display this help menu
