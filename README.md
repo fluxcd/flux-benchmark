@@ -37,3 +37,20 @@ Install Flux (without bootstrap) with:
 ```shell
 make flux-install
 ```
+
+## Monitoring Setup
+
+Install the Flux monitoring stack with:
+
+```shell
+timoni bundle apply -f timoni/bundles/flux-monitoring.cue --timeout 10m
+```
+
+To access Grafana, start port forward in a separate shell:
+
+```shell
+kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana  3000:80
+```
+
+Navigate to `http://localhost:3000` in your browser and login with user `admin` and password `flux`.
+
