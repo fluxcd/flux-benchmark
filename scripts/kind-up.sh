@@ -26,6 +26,8 @@ nodes:
         nodeRegistration:
           kubeletExtraArgs:
             node-labels: "ingress-ready=true"
+  - role: worker
+  - role: worker
 EOF
 }
 
