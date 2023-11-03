@@ -62,14 +62,13 @@ Push the Timoni modules to the local registry with:
 make timoni-push
 ```
 
-Install HRs with (podinfo deployment is scaled to zero):
+Install HRs with the podinfo deployment is scaled to zero:
 
 ```shell
 HRS=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=5m
 ```
 
 Upgrade the HRs with:
-
 
 ```shell
 HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=5m
