@@ -20,10 +20,18 @@ images:
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: v2beta2-8d25f9b6
+    newTag: v2beta2-ed9bd472
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
     newName: ghcr.io/fluxcd/image-reflector-controller
   - name: fluxcd/image-automation-controller
     newName: ghcr.io/fluxcd/image-automation-controller
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --concurrent=10
+    target:
+      kind: Deployment
+      name: "(kustomize-controller|helm-controller)"
