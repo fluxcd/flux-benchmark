@@ -34,7 +34,7 @@ patches:
         value: --concurrent=10
     target:
       kind: Deployment
-      name: "(kustomize-controller|helm-controller)"
+      name: "(kustomize-controller|helm-controller|source-controller)"
   - patch: |
       apiVersion: apps/v1
       kind: Deployment
@@ -48,7 +48,34 @@ patches:
                 resources:
                   limits:
                     cpu: 2000m
-                    memory: 2Gi
+                    memory: 1Gi
     target:
       kind: Deployment
       name: "(kustomize-controller|helm-controller)"
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: all
+      spec:
+        template:
+          metadata:
+            annotations:
+              cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+          spec:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: role
+                          operator: In
+                          values:
+                            - flux
+            tolerations:
+              - effect: NoSchedule
+                key: role
+                operator: Equal
+                value: flux
+    target:
+      kind: Deployment
