@@ -30,9 +30,14 @@ make up
 The Docker registry is exposed on the local machine on `localhost:5555`
 and inside the cluster on `flux-registry:5000`. 
 
+The Kubernetes cluster is made out of 3 nodes:
+- flux-control-plane (Kubernetes API & etcd)
+- flux-worker (Flux controllers)
+- flux-worker1 (Prometheus, Grafana, kube-state-metrics, metrics-server)
+
 ## Flux Setup
 
-Install Flux (without bootstrap) with:
+Install Flux on a dedicated node with:
 
 ```shell
 make flux-install
@@ -62,16 +67,33 @@ Push the Timoni modules to the local registry with:
 make timoni-push
 ```
 
-Install HRs with the podinfo deployment is scaled to zero:
+Install HRs with the podinfo deployment scaled to zero:
 
 ```shell
-HRS=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=5m
+HRS=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
 Upgrade the HRs with:
 
 ```shell
-HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=5m
+HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-Bump the HRS number up if you feel courageous.
+### Results
+
+Specs:
+- MacBook Pro M1 Max
+- Docker Desktop for Mac (10 CPU / 24GB)
+- Kubernetes Kind (v1.28.0 / 3 nodes)
+- Flux source-controller (1CPU / 1Gi)
+- Flux helm-controller (2CPU / 1Gi)
+- Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
+
+| Objects | Type        | Flux component    | Concurrency | Total Duration | Max Memory |
+|---------|-------------|-------------------|-------------|----------------|------------|
+| 100     | HelmChart   | source-controller | 4           | 35s            | 40Mi       |
+| 100     | HelmRelease | helm-controller   | 4           | 42s            | 140Mi      |
+| 500     | HelmChart   | source-controller | 10          | 1m5s           | 68Mi       |
+| 500     | HelmRelease | helm-controller   | 10          | 1m58s          | 350Mi      |
+| 1000    | HelmChart   | source-controller | 10          | 1m45s          | 110Mi      |
+| 1000    | HelmRelease | helm-controller   | 10          | 4m59s          | 470Mi      |
