@@ -20,6 +20,7 @@ containerdConfigPatches:
       endpoint = ["http://${reg_name}:${reg_cluster_port}"]
 nodes:
   - role: control-plane
+    image: kindest/node:v1.28.0
     kubeadmConfigPatches:
       - |
         kind: InitConfiguration
@@ -27,7 +28,9 @@ nodes:
           kubeletExtraArgs:
             node-labels: "ingress-ready=true"
   - role: worker
+    image: kindest/node:v1.28.0
   - role: worker
+    image: kindest/node:v1.28.0
 EOF
 }
 
