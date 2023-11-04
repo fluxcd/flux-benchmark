@@ -88,6 +88,7 @@ Specs:
 - Flux source-controller (1CPU / 1Gi)
 - Flux helm-controller (2CPU / 1Gi)
 - Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
+- Chart contents (Deployment, Service Account, Service, Ingress)
 
 | Objects | Type        | Flux component    | Concurrency | Total Duration | Max Memory |
 |---------|-------------|-------------------|-------------|----------------|------------|
