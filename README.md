@@ -117,12 +117,21 @@ timoni bundle delete flux-helm-benchmark
 | 100     | HelmRelease   | helm-controller      | 4           | 42s            | 140Mi      |
 | 500     | OCIRepository | source-controller    | 10          | 45s            | 65Mi       |
 | 500     | Kustomization | kustomize-controller | 10          | 1m50s          | 72Mi       |
-| 500     | HelmChart     | source-controller    | 10          | 1m5s           | 68Mi       |
+| 500     | HelmChart     | source-controller    | 10          | 1m10s          | 68Mi       |
 | 500     | HelmRelease   | helm-controller      | 10          | 1m58s          | 350Mi      |
 | 1000    | OCIRepository | source-controller    | 10          | 1m30s          | 67Mi       |
 | 1000    | Kustomization | kustomize-controller | 20          | 3m58s          | 112Mi      |
 | 1000    | HelmChart     | source-controller    | 10          | 1m45s          | 110Mi      |
 | 1000    | HelmRelease   | helm-controller      | 10          | 5m10s          | 620Mi      |
+
+### Observations
+
+Increasing kustomize-controller's concurrency above 10,
+does yell better results but the tmp dir must be in tmpfs to avoid kustomize build disk thrashing.
+
+Increasing helm-controller's concurrency above 10,
+does not yell better results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
+Higher concurrency probably requires an HA Kubernetes control plane with multiple API replicas.
 
 ### Specs
 
