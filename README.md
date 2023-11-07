@@ -107,7 +107,14 @@ Teardown:
 timoni bundle delete flux-helm-benchmark
 ```
 
-## Benchmark Results (Flux v2.2 RC)
+## MTTP Benchmark Results (Flux v2.2 RC)
+
+The Mean Time To Production (MTTP) benchmark measures the time it takes for Flux
+to deploy application changes into production. We measure the time spent on fetching
+app packages from the registry (Flux OCI artifacts and Helm charts) and the time spent
+reconciling app definitions on the Kubernetes cluster.
+
+For this benchmark we assume 100, 500 and 1000 app packages being pushed to the registry at the same time.
 
 | Objects | Type          | Flux component       | Concurrency | Total Duration | Max Memory |
 |---------|---------------|----------------------|-------------|----------------|------------|
