@@ -107,7 +107,7 @@ Teardown:
 timoni bundle delete flux-helm-benchmark
 ```
 
-## Benchmark Results
+## Benchmark Results (Flux v2.2 RC)
 
 | Objects | Type          | Flux component       | Concurrency | Total Duration | Max Memory |
 |---------|---------------|----------------------|-------------|----------------|------------|
