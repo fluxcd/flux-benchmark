@@ -34,7 +34,7 @@ patches:
         value: --concurrent=10
     target:
       kind: Deployment
-      name: "(kustomize-controller|helm-controller|source-controller)"
+      name: "(helm-controller|source-controller)"
   - patch: |
       apiVersion: apps/v1
       kind: Deployment
@@ -48,7 +48,7 @@ patches:
                 resources:
                   limits:
                     cpu: 2000m
-                    memory: 1Gi
+                    memory: 2Gi
     target:
       kind: Deployment
       name: "(kustomize-controller|helm-controller)"
@@ -79,3 +79,13 @@ patches:
                 value: flux
     target:
       kind: Deployment
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --feature-gates=DisableStatusPollerCache=true
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --concurrent=20
+    target:
+      kind: Deployment
+      name: kustomize-controller

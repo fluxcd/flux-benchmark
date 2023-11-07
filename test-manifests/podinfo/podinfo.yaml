@@ -1,0 +1,146 @@
+---
+# Source: podinfo/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: "podinfo-${INDEX}"
+  labels:
+    app.kubernetes.io/name: "podinfo-${INDEX}"
+    app.kubernetes.io/version: "6.5.3"
+    app.kubernetes.io/managed-by: Flux
+---
+# Source: podinfo/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "podinfo-${INDEX}"
+  labels:
+    app.kubernetes.io/name: "podinfo-${INDEX}"
+    app.kubernetes.io/version: "6.5.3"
+    app.kubernetes.io/managed-by: Flux
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9898
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 9999
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+  selector:
+    app.kubernetes.io/name: "podinfo-${INDEX}"
+---
+# Source: podinfo/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "podinfo-${INDEX}"
+  labels:
+    app.kubernetes.io/name: "podinfo-${INDEX}"
+    app.kubernetes.io/version: "6.5.3"
+    app.kubernetes.io/managed-by: Flux
+spec:
+  replicas: 0
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "podinfo-${INDEX}"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "podinfo-${INDEX}"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9898"
+    spec:
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: "podinfo-${INDEX}"
+      containers:
+        - name: podinfo
+          image: "ghcr.io/stefanprodan/podinfo:6.5.3"
+          imagePullPolicy: IfNotPresent
+          command:
+            - ./podinfo
+            - --port=9898
+            - --cert-path=/data/cert
+            - --port-metrics=9797
+            - --grpc-port=9999
+            - --grpc-service-name=podinfo
+            - --level=info
+            - --random-delay=false
+            - --random-error=false
+          env:
+            - name: PODINFO_UI_COLOR
+              value: "#34577c"
+          ports:
+            - name: http
+              containerPort: 9898
+              protocol: TCP
+            - name: http-metrics
+              containerPort: 9797
+              protocol: TCP
+            - name: grpc
+              containerPort: 9999
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+                - podcli
+                - check
+                - http
+                - localhost:9898/healthz
+            initialDelaySeconds: 1
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - podcli
+                - check
+                - http
+                - localhost:9898/readyz
+            initialDelaySeconds: 1
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "${MCPU}"
+              memory: 16Mi
+      volumes:
+        - name: data
+          emptyDir: {}
+---
+# Source: podinfo/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "podinfo-${INDEX}"
+  labels:
+    app.kubernetes.io/name: "podinfo-${INDEX}"
+    app.kubernetes.io/version: "6.5.3"
+    app.kubernetes.io/managed-by: Flux
+spec:
+  ingressClassName: "nginx"
+  rules:
+    - host: "podinfo-${INDEX}.local"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: "podinfo-${INDEX}"
+                port:
+                  number: 9898

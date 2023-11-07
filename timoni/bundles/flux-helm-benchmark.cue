@@ -1,10 +1,10 @@
 bundle: {
 	apiVersion: "v1alpha1"
-	name:       "flux-benchmark"
+	name:       "flux-helm-benchmark"
 	instances: {
 		"podinfo": {
 			module: url: "oci://localhost:5555/modules/flux-hr-bench"
-			namespace: "benchmark"
+			namespace: "helm-benchmark"
 			values: {
 				chart: {
 					name:     "podinfo"
