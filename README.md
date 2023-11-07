@@ -1,4 +1,4 @@
-# gitops-benchmark
+# flux-benchmark
 
 Flux release candidates testing and benchmark.
 
