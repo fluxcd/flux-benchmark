@@ -67,34 +67,70 @@ Push the Timoni modules to the local registry with:
 make timoni-push
 ```
 
-Install HRs with the podinfo deployment scaled to zero:
+### Flux Kustomization Benchmark
+
+Run benchmark for OCI artifact pull and Flux Kustomization install:
 
 ```shell
-HRS=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
+KS=100 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-Upgrade the HRs with:
+Run benchmark for Flux Kustomization upgrade:
 
 ```shell
-HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
+KS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-### Results
+Teardown:
 
-Specs:
+```shell
+timoni bundle delete flux-kustomize-benchmark
+```
+
+### Flux HelmRelease Benchmark
+
+Run benchmark for Helm chart pull and Helm Release install:
+
+```shell
+HRS=100 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+```
+
+Run benchmark for Helm Release upgrade:
+
+```shell
+HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+```
+
+Teardown:
+
+```shell
+timoni bundle delete flux-helm-benchmark
+```
+
+## Benchmark Results
+
+| Objects | Type          | Flux component       | Concurrency | Total Duration | Max Memory |
+|---------|---------------|----------------------|-------------|----------------|------------|
+| 100     | OCIRepository | source-controller    | 4           | 35s            | 38Mi       |
+| 100     | Kustomization | kustomize-controller | 4           | 38s            | 32Mi       |
+| 100     | HelmChart     | source-controller    | 4           | 35s            | 40Mi       |
+| 100     | HelmRelease   | helm-controller      | 4           | 42s            | 140Mi      |
+| 500     | OCIRepository | source-controller    | 10          | 45s            | 65Mi       |
+| 500     | Kustomization | kustomize-controller | 10          | 1m50s          | 72Mi       |
+| 500     | HelmChart     | source-controller    | 10          | 1m5s           | 68Mi       |
+| 500     | HelmRelease   | helm-controller      | 10          | 1m58s          | 350Mi      |
+| 1000    | OCIRepository | source-controller    | 10          | 1m30s          | 67Mi       |
+| 1000    | Kustomization | kustomize-controller | 20          | 3m58s          | 112Mi      |
+| 1000    | HelmChart     | source-controller    | 10          | 1m45s          | 110Mi      |
+| 1000    | HelmRelease   | helm-controller      | 10          | 5m10s          | 620Mi      |
+
+### Specs
+
 - MacBook Pro M1 Max
 - Docker Desktop for Mac (10 CPU / 24GB)
 - Kubernetes Kind (v1.28.0 / 3 nodes)
 - Flux source-controller (1CPU / 1Gi)
+- Flux kustomize-controller (1CPU / 1Gi)
 - Flux helm-controller (2CPU / 1Gi)
 - Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
-- Chart contents (Deployment, Service Account, Service, Ingress)
-
-| Objects | Type        | Flux component    | Concurrency | Total Duration | Max Memory |
-|---------|-------------|-------------------|-------------|----------------|------------|
-| 100     | HelmChart   | source-controller | 4           | 35s            | 40Mi       |
-| 100     | HelmRelease | helm-controller   | 4           | 42s            | 140Mi      |
-| 500     | HelmChart   | source-controller | 10          | 1m5s           | 68Mi       |
-| 500     | HelmRelease | helm-controller   | 10          | 1m58s          | 350Mi      |
-| 1000    | HelmChart   | source-controller | 10          | 1m45s          | 110Mi      |
-| 1000    | HelmRelease | helm-controller   | 10          | 4m59s          | 470Mi      |
+- App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
