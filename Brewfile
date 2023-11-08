@@ -1,16 +1,7 @@
 # Kubernetes
 brew "kubectl"
 brew "kind"
-
-# Kubernetes tools
-brew "yq"
-brew "jq"
-brew "cue"
 brew "helm"
-
-# OCI tools
-brew "crane"
-brew "cosign"
 
 # Flux
 tap "fluxcd/tap"

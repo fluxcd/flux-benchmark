@@ -1,0 +1,37 @@
+name: benchmark
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Install tools
+        run: make tools
+      - name: Create cluster
+        run: make up
+      - name: Push modules
+        run: make timoni-push
+      - name: Install Flux
+        run: make flux-up
+      - name: Run kustomize benchmark
+        run: KS=500 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
+      - name: Run helm benchmark
+        run: HRS=500 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+      - name: Debug failure
+        if: failure()
+        run: |
+          kubectl -n flux-system get pods
+          flux get all --all-namespaces
