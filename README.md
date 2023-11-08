@@ -1,14 +1,18 @@
 # flux-benchmark
 
-Flux release candidates testing and benchmark.
+[![benchmark](https://github.com/stefanprodan/flux-benchmark/actions/workflows/test.yaml/badge.svg)](https://github.com/stefanprodan/flux-benchmark/actions/workflows/test.yaml)
+
+**Mean Time To Production** benchmarks
+for [Flux](https://fluxcd.io) release candidates,
+made with [Timoni](https://github.com/stefanprodan/timoni).
 
 ## Prerequisites
 
 Start by cloning the repository locally:
 
 ```shell
-git clone https://github.com/stefanprodan/gitops-benchmark.git
-cd gitops-benchmark
+git clone https://github.com/stefanprodan/flux-benchmark.git
+cd flux-benchmark
 ```
 
 Install Kubernetes kind, flux, timoni and other CLI tools with Homebrew:
