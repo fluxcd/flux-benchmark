@@ -11,7 +11,7 @@ bundle: {
 					version:  "6.5.3"
 					interval: 60
 				}
-				releases: 100 @timoni(runtime:number:HRS)
+				releases: 100 @timoni(runtime:number:HR)
 				replicas: 0
 				requests: {
 					cpu: 1 @timoni(runtime:number:MCPU)

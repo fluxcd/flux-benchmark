@@ -73,13 +73,13 @@ make timoni-push
 
 ### Flux Kustomization Benchmark
 
-Run benchmark for OCI artifact pull and Flux Kustomization install:
+Run the benchmark for OCI artifact pull and Flux Kustomization install:
 
 ```shell
 KS=100 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-Run benchmark for Flux Kustomization upgrade:
+Run the benchmark for Flux Kustomization upgrade:
 
 ```shell
 KS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
@@ -93,16 +93,16 @@ timoni bundle delete flux-kustomize-benchmark
 
 ### Flux HelmRelease Benchmark
 
-Run benchmark for Helm chart pull and Helm Release install:
+Run the benchmark for Helm chart pull and Flux HelmRelease install:
 
 ```shell
-HRS=100 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+HR=100 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-Run benchmark for Helm Release upgrade:
+Run the benchmark for Flux HelmRelease upgrade:
 
 ```shell
-HRS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+HR=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
 Teardown:

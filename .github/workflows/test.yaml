@@ -29,7 +29,7 @@ jobs:
       - name: Run kustomize benchmark
         run: KS=500 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
       - name: Run helm benchmark
-        run: HRS=500 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+        run: HR=500 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
       - name: Debug failure
         if: failure()
         run: |
