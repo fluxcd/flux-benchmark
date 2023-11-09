@@ -20,7 +20,7 @@ images:
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: v2beta2-ed9bd472
+    newTag: v2beta2-e1e2d151
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
@@ -48,7 +48,7 @@ patches:
                 resources:
                   limits:
                     cpu: 2000m
-                    memory: 2Gi
+                    memory: 1Gi
     target:
       kind: Deployment
       name: "(kustomize-controller|helm-controller)"
