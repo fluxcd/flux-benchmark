@@ -31,6 +31,9 @@ import (
 		}
 		install: crds: "Create"
 		upgrade: crds: "CreateReplace"
+		if _config.replicas > 0 {
+			test: enable: _config.runTests
+		}
 		values: {
 			replicaCount: _config.replicas
 			if _config.replicas > 0 {
