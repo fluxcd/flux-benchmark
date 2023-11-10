@@ -11,7 +11,10 @@ permissions:
   contents: read
 
 jobs:
-  e2e:
+  bench:
+    strategy:
+      matrix:
+        RESOURCES: [ 100, 300, 500 ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,9 +30,9 @@ jobs:
       - name: Install Flux
         run: make flux-up
       - name: Run kustomize benchmark
-        run: KS=500 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
+        run: KS=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
       - name: Run helm benchmark
-        run: HR=500 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+        run: HR=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
       - name: Debug failure
         if: failure()
         run: |
