@@ -31,15 +31,15 @@ import (
 		}
 		install: crds: "Create"
 		upgrade: crds: "CreateReplace"
-		if _config.replicas > 0 {
+		if _config.pods > 0 {
 			test: enable: _config.runTests
 		}
 		values: {
-			replicaCount: _config.replicas
-			if _config.replicas > 0 {
+			replicaCount: _config.pods
+			if _config.pods > 0 {
 				hpa: {
 					enabled:     true
-					maxReplicas: _config.replicas
+					maxReplicas: _config.pods
 					cpu:         99
 				}
 			}
@@ -49,7 +49,7 @@ import (
 				className: "nginx"
 			}
 			resources: requests: {
-				cpu:    "\(_config.requests.cpu)m"
+				cpu:    "\(_config.mcpu)m"
 				memory: "16Mi"
 			}
 		}

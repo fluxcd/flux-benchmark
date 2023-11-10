@@ -42,7 +42,7 @@ metadata:
     app.kubernetes.io/version: "6.5.3"
     app.kubernetes.io/managed-by: Flux
 spec:
-  replicas: 0
+  replicas: ${PODS:=0}
   strategy:
     type: RollingUpdate
     rollingUpdate:

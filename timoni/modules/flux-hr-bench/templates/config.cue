@@ -34,8 +34,8 @@ import (
 	runTests: bool | *false
 
 	releases: int | *1
-	replicas: int | *2
-	requests: cpu: int | *1
+	pods:     int | *1
+	mcpu:     int | *1
 }
 
 // Instance takes the config values and outputs the Kubernetes objects.

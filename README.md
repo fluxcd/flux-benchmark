@@ -76,19 +76,13 @@ make timoni-push
 Run the benchmark for OCI artifact pull and Flux Kustomization install:
 
 ```shell
-KS=100 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
+KS=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
 Run the benchmark for Flux Kustomization upgrade:
 
 ```shell
-KS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-kustomize-benchmark.cue --runtime-from-env --timeout=10m
-```
-
-Teardown:
-
-```shell
-timoni bundle delete flux-kustomize-benchmark
+KS=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
 ### Flux HelmRelease Benchmark
@@ -96,19 +90,21 @@ timoni bundle delete flux-kustomize-benchmark
 Run the benchmark for Helm chart pull and Flux HelmRelease install:
 
 ```shell
-HR=100 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+HR=100 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
 Run the benchmark for Flux HelmRelease upgrade:
 
 ```shell
-HR=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-helm-benchmark.cue --runtime-from-env --timeout=10m
+HR=100 MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=10m
 ```
 
-Teardown:
+### Teardown
+
+Remove all Flux resources and the benchmark namespaces with:
 
 ```shell
-timoni bundle delete flux-helm-benchmark
+timoni bundle delete flux-benchmark
 ```
 
 ## MTTP Benchmark Results (Flux v2.2 RC)

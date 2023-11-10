@@ -29,6 +29,7 @@ import (
 
 		postBuild: substitute: {
 			"INDEX": "\(_index)app"
+			"PODS":  "\(_config.pods)"
 			"MCPU":  "\(_config.mcpu)m"
 		}
 

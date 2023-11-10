@@ -34,6 +34,7 @@ import (
 	}
 
 	syncs: int | *1
+	pods:  int | *1
 	mcpu:  int | *1
 }
 
