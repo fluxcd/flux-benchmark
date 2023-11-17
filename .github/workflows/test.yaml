@@ -14,7 +14,7 @@ jobs:
   bench:
     strategy:
       matrix:
-        RESOURCES: [ 100, 300, 500 ]
+        RESOURCES: [ 100, 300, 500, 1000 ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
