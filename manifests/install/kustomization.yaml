@@ -20,7 +20,7 @@ images:
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: v2beta2-e1e2d151
+    newTag: v2beta2-07bf73ee
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller

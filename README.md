@@ -44,7 +44,7 @@ The Kubernetes cluster is made out of 3 nodes:
 Install Flux on a dedicated node with:
 
 ```shell
-make flux-install
+make flux-up
 ```
 
 ## Monitoring Setup
