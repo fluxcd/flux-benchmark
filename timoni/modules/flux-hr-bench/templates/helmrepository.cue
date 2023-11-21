@@ -10,6 +10,7 @@ import (
 	spec:     fluxv1.#HelmRepositorySpec & {
 		interval: "12h"
 		timeout:  "2m"
+		insecure: true
 
 		url:  _config.repository.url
 		type: _config.repository.type
