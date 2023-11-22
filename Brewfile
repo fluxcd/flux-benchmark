@@ -2,6 +2,7 @@
 brew "kubectl"
 brew "kind"
 brew "helm"
+brew "crane"
 
 # Flux
 tap "fluxcd/tap"

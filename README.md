@@ -15,7 +15,7 @@ git clone https://github.com/stefanprodan/flux-benchmark.git
 cd flux-benchmark
 ```
 
-Install Kubernetes kind, flux, timoni and other CLI tools with Homebrew:
+Install Kubernetes kind, flux, timoni, crane and other CLI tools with Homebrew:
 
 ```shell
 make tools

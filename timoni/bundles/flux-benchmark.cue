@@ -23,7 +23,7 @@ bundle: {
 				values: {
 					chart: {
 						name:     "podinfo"
-						version:  "6.5.3"
+						version:  "*"
 						interval: 60
 					}
 					releases: _hr

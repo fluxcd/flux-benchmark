@@ -21,7 +21,7 @@ import (
 	role: "namespace-admin" | "cluster-admin" | *"namespace-admin"
 
 	repository: {
-		url:  string | *"oci://ghcr.io/stefanprodan/charts"
+		url:  string | *"oci://flux-registry:5000/charts"
 		type: string | *"oci"
 	}
 

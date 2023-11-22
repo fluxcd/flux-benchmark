@@ -16,11 +16,12 @@ transformers:
 images:
   - name: fluxcd/source-controller
     newName: ghcr.io/fluxcd/source-controller
+    newTag: preview-4b230f30
   - name: fluxcd/kustomize-controller
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: v2beta2-07bf73ee
+    newTag: v2beta2-c520a3e7
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
