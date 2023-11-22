@@ -32,6 +32,7 @@ import (
 	}
 
 	runTests: bool | *false
+	failTests: bool | *false
 
 	releases: int | *1
 	pods:     int | *1

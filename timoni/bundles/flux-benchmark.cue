@@ -26,9 +26,11 @@ bundle: {
 						version:  "*"
 						interval: 60
 					}
-					releases: _hr
-					pods:     0 @timoni(runtime:number:PODS)
-					mcpu:     1 @timoni(runtime:number:MCPU)
+					releases:  _hr
+					pods:      0 @timoni(runtime:number:PODS)
+					mcpu:      1 @timoni(runtime:number:MCPU)
+					runTests:  true
+					failTests: false
 				}
 			}
 		}

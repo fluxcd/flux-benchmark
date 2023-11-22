@@ -52,6 +52,7 @@ import (
 				cpu:    "\(_config.mcpu)m"
 				memory: "16Mi"
 			}
+			faults: testFail: _config.failTests
 		}
 	}
 }
