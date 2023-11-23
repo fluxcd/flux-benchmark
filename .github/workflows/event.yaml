@@ -1,9 +1,9 @@
 name: event
 
 on:
-  workflow_dispatch:
-#    types:
-#      - HelmRelease/podinfo-hr-0.helm-benchmark
+  repository_dispatch:
+    types:
+      - HelmRelease/podinfo-hr-0.helm-benchmark
 
 permissions:
   contents: read
@@ -18,4 +18,8 @@ jobs:
           ref: main
       - name: Handle Flux event
         run: |
-          echo ${{ github.event.client_payload }} | jq
+          echo '${{ toJson(github.event.client_payload) }}' | jq
+      - name: Extract Helm chart version
+        run: |
+          VERSION=$(echo ${{ github.event.client_payload.metadata.revision }} | cut -d '@' -f1)
+          echo $VERSION
