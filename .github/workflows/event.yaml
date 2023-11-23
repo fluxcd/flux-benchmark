@@ -1,0 +1,19 @@
+name: event
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Handle Flux event
+        run: |
+          echo ${{ github.event.client_payload }} | jq
