@@ -29,6 +29,9 @@ import (
 				interval: "\(10*_config.chart.interval)m"
 			}
 		}
+		driftDetection: {
+			mode: _config.driftDetection
+		}
 		install: crds: "Create"
 		upgrade: crds: "CreateReplace"
 		if _config.pods > 0 {

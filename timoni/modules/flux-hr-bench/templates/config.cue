@@ -31,7 +31,9 @@ import (
 		interval: int | *60
 	}
 
-	runTests: bool | *false
+	driftDetection: "enabled" | "warn" | "disabled" | *"enabled"
+
+	runTests:  bool | *false
 	failTests: bool | *false
 
 	releases: int | *1
