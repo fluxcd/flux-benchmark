@@ -2,6 +2,8 @@ name: event
 
 on:
   workflow_dispatch:
+    types:
+      - HelmRelease/podinfo-hr-0.helm-benchmark
 
 permissions:
   contents: read
