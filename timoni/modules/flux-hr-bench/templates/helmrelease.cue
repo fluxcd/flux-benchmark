@@ -34,6 +34,9 @@ import (
 		}
 		install: crds: "Create"
 		upgrade: crds: "CreateReplace"
+		if _config.rollback {
+			upgrade: remediation: retries: 3
+		}
 		if _config.pods > 0 {
 			test: enable: _config.runTests
 		}

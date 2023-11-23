@@ -31,6 +31,7 @@ bundle: {
 					mcpu:      1 @timoni(runtime:number:MCPU)
 					runTests:  true
 					failTests: false
+					rollback:  false
 				}
 			}
 		}

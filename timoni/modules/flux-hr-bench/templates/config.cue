@@ -33,6 +33,8 @@ import (
 
 	driftDetection: "enabled" | "warn" | "disabled" | *"enabled"
 
+	rollback: bool | *false
+
 	runTests:  bool | *false
 	failTests: bool | *false
 
