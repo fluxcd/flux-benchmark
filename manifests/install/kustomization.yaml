@@ -19,6 +19,7 @@ images:
     newTag: preview-4b230f30
   - name: fluxcd/kustomize-controller
     newName: ghcr.io/fluxcd/kustomize-controller
+    newTag: preview-250f620f
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
     newTag: v2beta2-a2648034
@@ -81,9 +82,6 @@ patches:
     target:
       kind: Deployment
   - patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --feature-gates=DisableStatusPollerCache=true
       - op: add
         path: /spec/template/spec/containers/0/args/-
         value: --concurrent=20
