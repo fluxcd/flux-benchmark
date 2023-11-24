@@ -22,7 +22,7 @@ images:
     newTag: preview-250f620f
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: v2beta2-a2648034
+    newTag: v2beta2-dd92f466
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
