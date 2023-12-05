@@ -6,6 +6,8 @@
 for [Flux](https://fluxcd.io) release candidates,
 made with [Timoni](https://github.com/stefanprodan/timoni).
 
+The benchmark results can be found in [RESULTS.md](RESULTS.md).
+
 ## Prerequisites
 
 Start by cloning the repository locally:
@@ -106,50 +108,3 @@ Remove all Flux resources and the benchmark namespaces with:
 ```shell
 timoni bundle delete flux-benchmark
 ```
-
-## MTTP Benchmark Results (Flux v2.2 RC)
-
-The Mean Time To Production (MTTP) benchmark measures the time it takes for Flux
-to deploy application changes into production. We measure the time spent on fetching
-app packages from the registry (Flux OCI artifacts and Helm charts) and the time spent
-reconciling app definitions on the Kubernetes cluster.
-
-For this benchmark we assume 100, 500 and 1000 app packages being pushed to the registry at the same time.
-
-| Objects | Type          | Flux component       | Duration Apple M1 | Duration Intel | Max Memory |
-|---------|---------------|----------------------|-------------------|----------------|------------|
-| 100     | OCIRepository | source-controller    | 35s               | 35s            | 38Mi       |
-| 100     | Kustomization | kustomize-controller | 38s               | 38s            | 32Mi       |
-| 100     | HelmChart     | source-controller    | 35s               | 35s            | 40Mi       |
-| 100     | HelmRelease   | helm-controller      | 42s               | 42s            | 140Mi      |
-| 500     | OCIRepository | source-controller    | 45s               | 45s            | 65Mi       |
-| 500     | Kustomization | kustomize-controller | **1m50s**         | **3m50s**      | 72Mi       |
-| 500     | HelmChart     | source-controller    | 1m10s             | 1m10s          | 68Mi       |
-| 500     | HelmRelease   | helm-controller      | **1m58s**         | **4m40s**      | 350Mi      |
-| 1000    | OCIRepository | source-controller    | 1m30s             | 1m30s          | 67Mi       |
-| 1000    | Kustomization | kustomize-controller | **3m58s**         | **4m50s**      | 112Mi      |
-| 1000    | HelmChart     | source-controller    | 1m45s             | 1m45s          | 110Mi      |
-| 1000    | HelmRelease   | helm-controller      | **5m10s**         | **14m10s**     | 620Mi      |
-
-### Observations
-
-Increasing kustomize-controller's concurrency above 10,
-does yell better results but the tmp dir must be in tmpfs to avoid kustomize build disk thrashing.
-
-Setting `DisableStatusPollerCache` in kustomize-controller is a must when reconciling more than 100 
-objects in a namespace, otherwise the poller cache will fill all the available memory.
-
-Increasing helm-controller's concurrency above 10,
-does not yell better results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
-Higher concurrency probably requires an HA Kubernetes control plane with multiple API replicas.
-
-### Specs
-
-- Apple Macbook Pro (M1 Max 8cpu)
-- GitHub hosted-runner (CPU Intel 2cpu)
-- Kubernetes Kind (v1.28.0 / 3 nodes)
-- Flux source-controller (1CPU / 1Gi / concurrency 10)
-- Flux kustomize-controller (1CPU / 1Gi / concurrency 20)
-- Flux helm-controller (2CPU / 1Gi / concurrency 10)
-- Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
-- App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
