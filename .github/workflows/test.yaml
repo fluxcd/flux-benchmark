@@ -15,7 +15,9 @@ jobs:
     strategy:
       matrix:
         RESOURCES: [ 100, 500, 1000 ]
-    runs-on: ubuntu-latest-16-cores
+    runs-on:
+      group: "Default Larger Runners"
+      labels: ubuntu-latest-16-cores
     steps:
       - name: Checkout
         uses: actions/checkout@v3
