@@ -29,14 +29,24 @@ jobs:
         run: make timoni-push
       - name: Install Flux
         run: make flux-up
+      - name: Install metrics-server
+        run: timoni bundle apply -f timoni/bundles/flux-metrics.cue
       - name: Run kustomize install benchmark
-        run: KS=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+        run: |
+          KS=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+          kubectl -n flux-system top pods
       - name: Run kustomize upgrade benchmark
-        run: KS=${{ matrix.RESOURCES }} MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+        run: |
+          KS=${{ matrix.RESOURCES }} MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+          kubectl -n flux-system top pods
       - name: Run helm install benchmark
-        run: HR=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+        run: |
+          HR=${{ matrix.RESOURCES }} timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+          kubectl -n flux-system top pods
       - name: Run helm upgrade benchmark
-        run: HR=${{ matrix.RESOURCES }} MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+        run: |
+          HR=${{ matrix.RESOURCES }} MCPU=2 timoni bundle apply -f timoni/bundles/flux-benchmark.cue --runtime-from-env --timeout=30m
+          kubectl -n flux-system top pods
       - name: Debug failure
         if: failure()
         run: |
