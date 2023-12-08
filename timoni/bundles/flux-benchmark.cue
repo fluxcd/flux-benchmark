@@ -24,7 +24,7 @@ bundle: {
 					chart: {
 						name:     "podinfo"
 						version:  "*"
-						interval: 60
+						interval: 5
 					}
 					releases:  _hr
 					pods:      0 @timoni(runtime:number:PODS)

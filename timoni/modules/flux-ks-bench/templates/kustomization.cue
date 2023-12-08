@@ -18,7 +18,7 @@ import (
 			kind: sourcev1.#OCIRepository.kind
 			name: "\(_config.metadata.name)-\(_index)"
 		}
-		interval:           "60m"
+		interval:           "5m"
 		retryInterval:      "2m"
 		path:               _config.repository.path
 		prune:              _config.sync.prune

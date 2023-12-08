@@ -26,7 +26,7 @@ import (
 					kind: "HelmRepository"
 					name: "\(_config.metadata.name)"
 				}
-				interval: "\(10*_config.chart.interval)m"
+				interval: "\(2*_config.chart.interval)m"
 			}
 		}
 		driftDetection: {
