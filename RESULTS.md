@@ -1,11 +1,12 @@
 # MTTP Benchmark Results
 
-The Mean Time To Production (MTTP) benchmark measures the time it takes for Flux
-to deploy application changes into production. We measure the time spent on fetching
-app packages from the registry (Flux OCI artifacts and Helm charts) and the time spent
-reconciling app definitions on the Kubernetes cluster.
+The Mean Time To Production (MTTP) benchmark measures the time it takes for
+Flux to deploy application changes into production. We measure the time spent
+on fetching app packages from the registry (Flux OCI artifacts and Helm charts)
+and the time spent reconciling app definitions on the Kubernetes cluster.
 
-For this benchmark we assume 100, 500 and 1000 app packages being pushed to the registry at the same time.
+For this benchmark we assume 100, 500 and 1000 app packages being pushed to the
+registry at the same time.
 
 **Specs**
 
@@ -36,13 +37,16 @@ For this benchmark we assume 100, 500 and 1000 app packages being pushed to the 
 
 ### Observations
 
-Increasing kustomize-controller's concurrency above 10,
-does yell better results but the tmp dir must be in tmpfs to avoid kustomize build disk thrashing.
+Increasing kustomize-controller's concurrency above 10 does yield better
+results, but the `/tmp` directory must be in tmpfs to prevent the Kustomize
+build from disk thrashing.
 
-Setting `DisableStatusPollerCache` in kustomize-controller is a must when reconciling more than 100 
-objects in a namespace, otherwise the poller cache will fill all the available memory.
+Setting `DisableStatusPollerCache` in kustomize-controller is a must when
+reconciling more than 100 objects in a namespace, otherwise the poller
+cache will fill all the available memory.
 
-Increasing helm-controller's concurrency above 10,
-does not yell better results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
-Higher concurrency probably requires an HA Kubernetes control plane with multiple API replicas.
+Increasing helm-controller's concurrency above 10 does not yield better
+results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
+Higher concurrency probably requires an HA Kubernetes control plane with
+multiple API replicas.
 
