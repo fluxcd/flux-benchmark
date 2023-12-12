@@ -41,10 +41,6 @@ Increasing kustomize-controller's concurrency above 10 does yield better
 results, but the `/tmp` directory must be in tmpfs to prevent the Kustomize
 build from disk thrashing.
 
-Setting `DisableStatusPollerCache` in kustomize-controller is a must when
-reconciling more than 100 objects in a namespace, otherwise the poller
-cache will fill all the available memory.
-
 Increasing helm-controller's concurrency above 10 does not yield better
 results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
 Higher concurrency probably requires an HA Kubernetes control plane with
