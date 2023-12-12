@@ -39,10 +39,10 @@ registry at the same time.
 
 Increasing kustomize-controller's concurrency above 10 does yield better
 results, but the `/tmp` directory must be in tmpfs to prevent the Kustomize
-build from disk thrashing.
+build from disk thrashing. Documentation on this can be found here:
+https://fluxcd.io/flux/installation/configuration/vertical-scaling/#enable-in-memory-kustomize-builds
 
 Increasing helm-controller's concurrency above 10 does not yield better
 results due to Helm SDK overloading the Kubernetes OpenAPI endpoint.
 Higher concurrency probably requires an HA Kubernetes control plane with
 multiple API replicas.
-
