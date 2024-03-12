@@ -1,0 +1,33 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: exampleresources.CRD_COUNT.example.com
+spec:
+  group: CRD_COUNT.example.com
+  names:
+    kind: ExampleResource
+    listKind: ExampleResourceList
+    plural: exampleresources
+    singular: exampleresource
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                size:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                color:
+                  type: string
+                  enum:
+                    - red
+                    - blue
+                    - green
