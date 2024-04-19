@@ -9,6 +9,7 @@ CLUSTER_NAME="${CLUSTER_NAME:=flux}"
 reg_name='flux-registry'
 reg_localhost_port='5555'
 reg_cluster_port='5000'
+node_image='kindest/node:v1.29.2'
 
 install_cluster() {
 cat <<EOF | kind create cluster --name ${CLUSTER_NAME} --wait 5m --config=-
@@ -20,7 +21,7 @@ containerdConfigPatches:
       endpoint = ["http://${reg_name}:${reg_cluster_port}"]
 nodes:
   - role: control-plane
-    image: kindest/node:v1.28.0
+    image: ${node_image}
     kubeadmConfigPatches:
       - |
         kind: InitConfiguration
@@ -28,9 +29,9 @@ nodes:
           kubeletExtraArgs:
             node-labels: "ingress-ready=true"
   - role: worker
-    image: kindest/node:v1.28.0
+    image: ${node_image}
   - role: worker
-    image: kindest/node:v1.28.0
+    image: ${node_image}
 EOF
 }
 
