@@ -4,16 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: helmreleases.CRD_COUNT.helm.toolkit.fluxcd.io
+  name: crdtests.CRD_COUNT.toolkit.fluxcd.io
 spec:
-  group: CRD_COUNT.helm.toolkit.fluxcd.io
+  group: CRD_COUNT.toolkit.fluxcd.io
   names:
-    kind: HelmRelease
-    listKind: HelmReleaseList
-    plural: helmreleases
-    shortNames:
-    - hr
-    singular: helmrelease
+    kind: CrdTest
+    listKind: CrdTestList
+    plural: crdtests
+    singular: crdtest
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
