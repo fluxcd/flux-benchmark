@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         RESOURCES: [100, 500, 1000]
-        CRDS: [150, 100, 50]
+        CRDS: [50, 250, 500]
     runs-on:
       group: "Default Larger Runners"
       labels: ubuntu-latest-16-cores
