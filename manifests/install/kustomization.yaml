@@ -20,6 +20,7 @@ images:
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
+    newTag: preview-9da55991
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
@@ -34,13 +35,6 @@ patches:
     target:
       kind: Deployment
       name: "(helm-controller|source-controller)"
-  - patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --snapshot-digest-algo=blake3
-    target:
-      kind: Deployment
-      name: helm-controller
   - patch: |
       apiVersion: apps/v1
       kind: Deployment

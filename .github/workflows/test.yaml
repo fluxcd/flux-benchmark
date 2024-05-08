@@ -14,7 +14,8 @@ jobs:
   bench:
     strategy:
       matrix:
-        RESOURCES: [ 100, 500, 1000 ]
+        RESOURCES: [100, 500, 1000]
+        CRDS: [50, 250, 500]
     runs-on:
       group: "Default Larger Runners"
       labels: ubuntu-latest-16-cores
@@ -31,6 +32,8 @@ jobs:
         run: make timoni-push
       - name: Install Flux
         run: make flux-up
+        env:
+          CRD_COUNT: ${{ matrix.CRDS }}
       - name: Install metrics-server
         run: timoni bundle apply -f timoni/bundles/flux-metrics.cue
       - name: Run kustomize install benchmark

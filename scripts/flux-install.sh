@@ -8,3 +8,4 @@ kubectl label node flux-worker role=flux --overwrite
 kubectl taint nodes flux-worker role=flux:NoSchedule --overwrite
 
 flux install --manifests $repo_root/manifests/install
+$repo_root/scripts/generate-crds.sh
