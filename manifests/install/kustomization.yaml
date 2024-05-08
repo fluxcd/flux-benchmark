@@ -16,12 +16,11 @@ transformers:
 images:
   - name: fluxcd/source-controller
     newName: ghcr.io/fluxcd/source-controller
-    newTag: preview-247cd7f1
   - name: fluxcd/kustomize-controller
     newName: ghcr.io/fluxcd/kustomize-controller
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
-    newTag: preview-1a15584c
+    newTag: preview-9da55991
   - name: fluxcd/notification-controller
     newName: ghcr.io/fluxcd/notification-controller
   - name: fluxcd/image-reflector-controller
@@ -36,13 +35,6 @@ patches:
     target:
       kind: Deployment
       name: "(helm-controller|source-controller)"
-  - patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --snapshot-digest-algo=blake3
-    target:
-      kind: Deployment
-      name: helm-controller
   - patch: |
       apiVersion: apps/v1
       kind: Deployment
