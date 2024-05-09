@@ -37,13 +37,12 @@ registry at the same time.
 
 ### Observations
 
-Comparing to Flux v2.2, in Flux v2.3 helm-controller memory management has
-improved a lot, especially when the cluster has hundreds of CRDs registered.
+Compared to Flux v2.2, in this version the memory consumption of the helm-controller
+has improved a lot, especially when the cluster has hundreds of CRDs registered.
 In Flux v2.2, helm-controller on Kubernetes v1.28 is running out of memory
-with 100 CRDs registered, while in Flux v2.3 on Kubernetes v1.29
-it can handle 500+ CRDs without issues. Given this results,
-it is recommended to upgrade the Kubernetes control plane to v1.29
-and Flux to v2.3.
+with 100 CRDs registered, while in Flux v2.3 on Kubernetes v1.29 it can handle
+500+ CRDs without issues. Given these results, it is recommended
+to upgrade the Kubernetes control plane to v1.29 and Flux to v2.3.
 
 ## Flux v2.2.0
 
