@@ -2,7 +2,7 @@
 
 //timoni:generate timoni vendor crd -f https://github.com/fluxcd/source-controller/releases/download/v1.3.0/source-controller.crds.yaml
 
-package v1beta2
+package v1
 
 import "strings"
 
@@ -15,7 +15,7 @@ import "strings"
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "source.toolkit.fluxcd.io/v1beta2"
+	apiVersion: "source.toolkit.fluxcd.io/v1"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.

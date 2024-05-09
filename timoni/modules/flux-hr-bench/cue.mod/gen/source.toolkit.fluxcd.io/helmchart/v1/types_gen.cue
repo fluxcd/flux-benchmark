@@ -2,7 +2,7 @@
 
 //timoni:generate timoni vendor crd -f https://github.com/fluxcd/source-controller/releases/download/v1.3.0/source-controller.crds.yaml
 
-package v1beta2
+package v1
 
 import "strings"
 
@@ -15,7 +15,7 @@ import "strings"
 	// may reject unrecognized values.
 	// More info:
 	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	apiVersion: "source.toolkit.fluxcd.io/v1beta2"
+	apiVersion: "source.toolkit.fluxcd.io/v1"
 
 	// Kind is a string value representing the REST resource this
 	// object represents.
@@ -47,23 +47,6 @@ import "strings"
 
 // HelmChartSpec specifies the desired state of a Helm chart.
 #HelmChartSpec: {
-	accessFrom?: {
-		// NamespaceSelectors is the list of namespace selectors to which
-		// this ACL applies.
-		// Items in this list are evaluated using a logical OR operation.
-		namespaceSelectors: [...{
-			// MatchLabels is a map of {key,value} pairs. A single {key,value}
-			// in the matchLabels
-			// map is equivalent to an element of matchExpressions, whose key
-			// field is "key", the
-			// operator is "In", and the values array contains only "value".
-			// The requirements are ANDed.
-			matchLabels?: {
-				[string]: string
-			}
-		}]
-	}
-
 	// Chart is the name or path the Helm chart is available at in the
 	// SourceRef.
 	chart: string
@@ -107,15 +90,6 @@ import "strings"
 	// this
 	// source.
 	suspend?: bool
-
-	// ValuesFile is an alternative values file to use as the default
-	// chart
-	// values, expected to be a relative path in the SourceRef.
-	// Deprecated in
-	// favor of ValuesFiles, for backwards compatibility the file
-	// specified here
-	// is merged before the ValuesFiles items. Ignored when omitted.
-	valuesFile?: string
 
 	// ValuesFiles is an alternative list of values files to use as
 	// the chart
