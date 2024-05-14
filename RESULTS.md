@@ -11,7 +11,7 @@ registry at the same time.
 **Specs**
 
 - GitHub hosted-runner (ubuntu-latest-16-cores)
-- Kubernetes Kind (v1.28.0 / 3 nodes)
+- Kubernetes Kind (3 nodes)
 - Flux source-controller (1CPU / 1Gi / concurrency 10)
 - Flux kustomize-controller (2CPU / 1Gi / concurrency 20)
 - Flux helm-controller (2CPU / 1Gi / concurrency 10)

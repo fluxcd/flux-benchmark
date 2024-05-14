@@ -12,6 +12,11 @@ reg_cluster_port='5000'
 node_image='kindest/node:v1.29.2'
 
 install_cluster() {
+
+if [[ -n "${KIND_NODE_IMAGE}" ]]; then
+  node_image="${KIND_NODE_IMAGE}"
+fi
+
 cat <<EOF | kind create cluster --name ${CLUSTER_NAME} --wait 5m --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
