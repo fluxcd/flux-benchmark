@@ -32,6 +32,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 1.22.x
+      - name: Setup Kind
+        uses: helm/kind-action@v1.10.0
+        with:
+          version: v0.23.0
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -53,9 +57,8 @@ jobs:
           docker tag kindest/node:latest ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-amd64
           docker push ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-amd64
   k8s-node-arm64:
-    # Hosted on Equinix
-    # Docs: https://github.com/fluxcd/flux2/tree/main/.github/runners
-    runs-on: [self-hosted, Linux, ARM64, equinix]
+    runs-on:
+      group: "ARM64"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,6 +75,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 1.22.x
+      - name: Setup Kind
+        uses: helm/kind-action@v1.10.0
+        with:
+          version: v0.23.0
       - name: Checkout
         uses: actions/checkout@v4
         with:
