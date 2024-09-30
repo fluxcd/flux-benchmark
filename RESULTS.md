@@ -18,6 +18,29 @@ registry at the same time.
 - Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
 - App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
 
+
+## Flux v2.4.0
+
+| Objects | Type          | Flux component       | Duration | Max Memory |
+|---------|---------------|----------------------|----------|------------|
+| 100     | OCIRepository | source-controller    | 25s      | 38Mi       |
+| 100     | Kustomization | kustomize-controller | 27s      | 32Mi       |
+| 100     | HelmChart     | source-controller    | 25s      | 40Mi       |
+| 100     | HelmRelease   | helm-controller      | 28s      | 190Mi      |
+| 500     | OCIRepository | source-controller    | 45s      | 65Mi       |
+| 500     | Kustomization | kustomize-controller | 2m4s     | 122Mi      |
+| 500     | HelmChart     | source-controller    | 45s      | 68Mi       |
+| 500     | HelmRelease   | helm-controller      | 2m44s    | 240Mi      |
+| 1000    | OCIRepository | source-controller    | 1m30s    | 67Mi       |
+| 1000    | Kustomization | kustomize-controller | 4m15s    | 175Mi      |
+| 1000    | HelmChart     | source-controller    | 1m30s    | 110Mi      |
+| 1000    | HelmRelease   | helm-controller      | 8m1s     | 400Mi      |
+
+### Observations
+
+Compared to Flux v2.3, the memory consumption of kustomize-controller
+and helm-controller has slight improved when reconciling over 500 apps.
+
 ## Flux v2.3.0
 
 | Objects | Type          | Flux component       | Duration | Max Memory |
