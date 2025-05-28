@@ -46,8 +46,8 @@ patches:
               - name: manager
                 resources:
                   limits:
-                    cpu: 4000m
-                    memory: 2Gi
+                    cpu: 2000m
+                    memory: 1Gi
     target:
       kind: Deployment
       name: "(kustomize-controller|helm-controller)"
