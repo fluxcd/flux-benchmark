@@ -19,6 +19,27 @@ registry at the same time.
 - App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
 
 
+## Flux v2.6.0
+
+| Objects | Type          | Flux component       | Duration | Max Memory |
+|---------|---------------|----------------------|----------|------------|
+| 100     | OCIRepository | source-controller    | 24s      | 38Mi       |
+| 100     | Kustomization | kustomize-controller | 28s      | 32Mi       |
+| 100     | HelmChart     | source-controller    | 24s      | 40Mi       |
+| 100     | HelmRelease   | helm-controller      | 27s      | 190Mi      |
+| 500     | OCIRepository | source-controller    | 43s      | 65Mi       |
+| 500     | Kustomization | kustomize-controller | 2m2s     | 122Mi      |
+| 500     | HelmChart     | source-controller    | 48s      | 68Mi       |
+| 500     | HelmRelease   | helm-controller      | 2m45s    | 240Mi      |
+| 1000    | OCIRepository | source-controller    | 1m25s    | 67Mi       |
+| 1000    | Kustomization | kustomize-controller | 4m16s    | 175Mi      |
+| 1000    | HelmChart     | source-controller    | 1m20s    | 110Mi      |
+| 1000    | HelmRelease   | helm-controller      | 8m12s    | 400Mi      |
+
+### Observations
+
+Compared to Flux v2.5 & Kubernetes 1.30, the 
+
 ## Flux v2.5.0
 
 | Objects | Type          | Flux component       | Duration | Max Memory |
