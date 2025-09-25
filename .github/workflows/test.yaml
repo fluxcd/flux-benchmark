@@ -29,7 +29,7 @@ jobs:
       - name: Create cluster
         run: make up
         env:
-          KIND_NODE_IMAGE: ghcr.io/fluxcd/kindest/node:v1.33.0-amd64
+          KIND_NODE_IMAGE: ghcr.io/fluxcd/kindest/node:v1.34.1-amd64
       - name: Push modules
         run: make timoni-push
       - name: Install Flux
