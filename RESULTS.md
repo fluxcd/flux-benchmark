@@ -18,6 +18,28 @@ registry at the same time.
 - Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
 - App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
 
+## Flux v2.7.0
+
+| Objects | Type          | Flux component       | Duration | Max Memory |
+|---------|---------------|----------------------|----------|------------|
+| 100     | OCIRepository | source-controller    | 24s      | 38Mi       |
+| 100     | Kustomization | kustomize-controller | 26s      | 32Mi       |
+| 100     | HelmChart     | source-controller    | 24s      | 40Mi       |
+| 100     | HelmRelease   | helm-controller      | 27s      | 190Mi      |
+| 500     | OCIRepository | source-controller    | 43s      | 65Mi       |
+| 500     | Kustomization | kustomize-controller | 2m5s     | 130Mi      |
+| 500     | HelmChart     | source-controller    | 48s      | 68Mi       |
+| 500     | HelmRelease   | helm-controller      | 2m9s     | 255Mi      |
+| 1000    | OCIRepository | source-controller    | 1m25s    | 67Mi       |
+| 1000    | Kustomization | kustomize-controller | 4m14s    | 195Mi      |
+| 1000    | HelmChart     | source-controller    | 1m20s    | 110Mi      |
+| 1000    | HelmRelease   | helm-controller      | 4m35s    | 330Mi      |
+
+### Observations
+
+Compared to Flux v2.6 & Kubernetes 1.33, in Flux 2.7 & Kubernetes 1.34 there is
+substantial improvement in the reconciliation speed of HelmRelease objects when the
+number of releases is 1000 or more.
 
 ## Flux v2.6.0
 
