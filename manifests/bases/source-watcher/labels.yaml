@@ -3,7 +3,7 @@ kind: LabelTransformer
 metadata:
   name: labels
 labels:
-  app.kubernetes.io/component: image-automation-controller
+  app.kubernetes.io/component: source-watcher
   app.kubernetes.io/part-of: flux
 fieldSpecs:
   - path: metadata/labels
