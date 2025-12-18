@@ -5,7 +5,11 @@ on:
     inputs:
       version:
         description: 'Kubernetes version'
-        default: 'v1.30.0'
+        default: 'v1.35.0'
+        required: true
+      kind:
+        description: 'Kind version'
+        default: 'v0.31.0'
         required: true
 
 permissions:
@@ -18,29 +22,20 @@ jobs:
       labels: ubuntu-latest-16-cores
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Prepare
-        id: prep
-        run: |
-          VERSION="${{ github.event.inputs.version }}"
-          if [[ -z "$VERSION" ]]; then
-            VERSION="v1.27.13"
-          fi
-          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
-          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+        uses: actions/checkout@v6
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: 1.22.x
+          go-version: 'stable'
       - name: Setup Kind
-        uses: helm/kind-action@v1.10.0
+        uses: helm/kind-action@v1.13.0
         with:
-          version: v0.23.0
+          version: ${{ github.event.inputs.kind }}
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: kubernetes/kubernetes
-          ref: ${{ steps.prep.outputs.VERSION }}
+          ref: ${{ github.event.inputs.version }}
           path: kubernetes
       - name: Build node image
         run: |
@@ -54,36 +49,27 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Push node image
         run: |
-          docker tag kindest/node:latest ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-amd64
-          docker push ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-amd64
+          docker tag kindest/node:latest ghcr.io/fluxcd/kindest/node:${{ github.event.inputs.version }}-amd64
+          docker push ghcr.io/fluxcd/kindest/node:${{ github.event.inputs.version }}-amd64
   k8s-node-arm64:
     runs-on:
       group: "ARM64"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Prepare
-        id: prep
-        run: |
-          VERSION="${{ github.event.inputs.version }}"
-          if [[ -z "$VERSION" ]]; then
-            VERSION="v1.27.13"
-          fi
-          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
-          echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
+        uses: actions/checkout@v6
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: 1.22.x
+          go-version: 'stable'
       - name: Setup Kind
-        uses: helm/kind-action@v1.10.0
+        uses: helm/kind-action@v1.13.0
         with:
-          version: v0.23.0
+          version: ${{ github.event.inputs.kind }}
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: kubernetes/kubernetes
-          ref: ${{ steps.prep.outputs.VERSION }}
+          ref: ${{ github.event.inputs.version }}
           path: kubernetes
       - name: Build node image
         run: |
@@ -97,5 +83,5 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Push node image
         run: |
-          docker tag kindest/node:latest ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-arm64
-          docker push ghcr.io/fluxcd/kindest/node:${{ steps.prep.outputs.VERSION }}-arm64
+          docker tag kindest/node:latest ghcr.io/fluxcd/kindest/node:${{ github.event.inputs.version }}-arm64
+          docker push ghcr.io/fluxcd/kindest/node:${{ github.event.inputs.version }}-arm64
