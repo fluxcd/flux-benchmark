@@ -1,7 +1,5 @@
 # flux-benchmark
 
-<!-- benchmark control PR: compare current main -->
-
 [![benchmark](https://github.com/fluxcd/flux-benchmark/actions/workflows/test.yaml/badge.svg)](https://github.com/fluxcd/flux-benchmark/actions/workflows/test.yaml)
 
 **Mean Time To Production** benchmarks
