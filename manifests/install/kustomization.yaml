@@ -19,6 +19,7 @@ images:
     newName: ghcr.io/fluxcd/source-controller
   - name: fluxcd/kustomize-controller
     newName: ghcr.io/fluxcd/kustomize-controller
+    digest: sha256:ac15d078042f4f2faacc4e83a93a04d38f32939a2789be98c10047ed216f4bbd
   - name: fluxcd/helm-controller
     newName: ghcr.io/fluxcd/helm-controller
   - name: fluxcd/notification-controller
