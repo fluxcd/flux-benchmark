@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches:
-      - main
+    branches: [ 'bench*' ]
 
 permissions:
   contents: read
@@ -21,7 +20,7 @@ jobs:
       labels: ubuntu-latest-16-cores
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
       - name: Trust Homebrew taps
@@ -35,7 +34,7 @@ jobs:
       - name: Create cluster
         run: make up
         env:
-          KIND_NODE_IMAGE: ghcr.io/fluxcd/kindest/node:v1.34.1-amd64
+          KIND_NODE_IMAGE: ghcr.io/fluxcd/kindest/node:v1.37.0-amd64
       - name: Push modules
         run: make timoni-push
       - name: Install Flux

@@ -35,7 +35,7 @@ jobs:
         run: |
           kind build node-image --type release ${{ github.event.inputs.version }}
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: fluxcdbot
@@ -62,7 +62,7 @@ jobs:
         run: |
           kind build node-image --type release ${{ github.event.inputs.version }}
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: fluxcdbot
