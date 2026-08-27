@@ -5,11 +5,11 @@ on:
     inputs:
       version:
         description: 'Kubernetes version'
-        default: 'v1.36.0'
+        default: 'v1.37.0'
         required: true
       kind:
         description: 'Kind version'
-        default: 'v0.32.0'
+        default: 'v0.33.0'
         required: true
 
 permissions:
@@ -22,9 +22,9 @@ jobs:
       labels: ubuntu-latest-16-cores
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           go-version: 'stable'
       - name: Setup Kind
@@ -49,9 +49,9 @@ jobs:
       group: "ARM64"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           go-version: 'stable'
       - name: Setup Kind
