@@ -72,11 +72,10 @@ rules:
   - update
   - patch
   - delete
-# required for object-level workload identity
 - apiGroups:
-  - ""
+  - authorization.k8s.io
   resources:
-  - serviceaccounts/token
+  - subjectaccessreviews
   verbs:
   - create
 # required for flow control
