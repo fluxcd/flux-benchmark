@@ -18,6 +18,29 @@ registry at the same time.
 - Helm repository (oci://ghcr.io/stefanprodan/charts/podinfo)
 - App manifests (Deployment scaled to zero, Service Account, Service, Ingress)
 
+## Flux v2.10.0
+
+| Objects | Type          | Flux component       | Duration | Max Memory |
+|---------|---------------|----------------------|----------|------------|
+| 100     | OCIRepository | source-controller    | 23s      | 31Mi       |
+| 100     | Kustomization | kustomize-controller | 26s      | 197Mi      |
+| 100     | HelmChart     | source-controller    | 31s      | 77Mi       |
+| 100     | HelmRelease   | helm-controller      | 31s      | 181Mi      |
+| 500     | OCIRepository | source-controller    | 2m6s     | 95Mi       |
+| 500     | Kustomization | kustomize-controller | 2m3s     | 265Mi      |
+| 500     | HelmChart     | source-controller    | 2m34s    | 137Mi      |
+| 500     | HelmRelease   | helm-controller      | 2m24s    | 743Mi      |
+| 1000    | OCIRepository | source-controller    | 4m20s    | 138Mi      |
+| 1000    | Kustomization | kustomize-controller | 4m13s    | 297Mi      |
+| 1000    | HelmChart     | source-controller    | 5m20s    | 193Mi      |
+| 1000    | HelmRelease   | helm-controller      | 4m48s    | 595Mi      |
+
+### Observations
+
+The reconciliation speed of OCIRepository and Kustomization objects in Flux 2.10
+is in the same range as Flux v2.9. HelmChart and HelmRelease objects are
+slightly slower than Flux v2.9 at 500 objects or more.
+
 ## Flux v2.9.0
 
 | Objects | Type          | Flux component       | Duration | Max Memory |
